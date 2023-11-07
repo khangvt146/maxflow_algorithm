@@ -51,7 +51,8 @@ class MaxFlow:
 
         return node_sink
 
-
+    def validate_input(self, source: int, sink: int): pass
+        
     def run(self, source: int, sink: int) -> tuple[int, float]:
         """Run the whole service.
         Args:
@@ -64,11 +65,12 @@ class MaxFlow:
         """
         tic: float = time.time()
 
+        # self.validate_input(source, sink)
         max_flow = self.algorithm(source, sink) # Run algorithm
-        
+
         toc: float = time.time()
         finish_time = toc - tic
-        print(f"== Max flow is {max_flow}. Finished in {finish_time:.8f} seconds. ==")
+        print(f"== {self.__class__.__name__} method: Max flow is {max_flow}. Finished in {finish_time:.8f} seconds. ==")
         return max_flow, finish_time
 
     def algorithm(self, source: int, sink: int) -> int:

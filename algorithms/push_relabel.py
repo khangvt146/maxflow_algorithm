@@ -30,16 +30,18 @@ class PushRelabel(MaxFlow):
         self.flow[v][u] -= d
         self.excess[u] -= d
         self.excess[v] += d
-        if d and self.excess[u] == d:
+        # print(f"Push {u} to {v} with {d} units")
+        if d > 0 and self.excess[v] == d:
             self.excess_vertices.append(v)
 
     def relabel(self, u: int) -> None:
         d = INF
-        for i in range(n):
+        for i in range(self.num_nodes):
             if self.capacity[u][i] - self.flow[u][i] > 0:
                 d = min(d, self.height[i])
         if d < INF:
             self.height[u] = d + 1
+        # print(f"Relabel {u} to {self.height[u]}")
 
     def discharge(self, u: int) -> None:
         while self.excess[u] > 0:
@@ -63,22 +65,25 @@ class PushRelabel(MaxFlow):
             int: The maximum flow value of the algorithm.
         """
         # TODO: Implement Push-Relabel algorithm
-        
         self.height[source] = self.num_nodes
         self.excess[source] = INF
 
         for i in range(self.num_nodes):
             if i != source:
                 self.push(source,i)
-
+        
+        # print(f'>> Start queue: {self.excess_vertices}')
         while(len(self.excess_vertices) > 0):
             u = self.excess_vertices[0]
+            # print(f"Choose {u}")
             self.excess_vertices.pop(0)
+            # print(f"Queue after: {self.excess_vertices}")
             if u != source and u != sink:
                 self.discharge(u)
         
         # Calculate max flow
         max_flow = 0
         for i in range(self.num_nodes):
-            max_flow += self.flow[sink][i]
+            # print(i, self.flow[i][sink])
+            max_flow += self.flow[i][sink]
         return max_flow
