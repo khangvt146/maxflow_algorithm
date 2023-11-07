@@ -83,4 +83,5 @@ class MaxFlow:
         Note:
             If the sub-class not implementing the algorithm method, throws an NotImplementedError exception.
         """
+        # Verify the source and sink
         raise NotImplementedError("Algorithm method is not implemented!!!")

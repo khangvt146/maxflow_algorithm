@@ -24,7 +24,34 @@ class PushRelabel(MaxFlow):
         self.capacity = self.adjacency_matrix # ??? Have the another flow
         self.excess_vertices = [] # queue
 
+    def push(self, u: int, v: int) -> None:
+        d = min(self.excess[u], self.capacity[u][v] - self.flow[u][v])
+        self.flow[u][v] += d
+        self.flow[v][u] -= d
+        self.excess[u] -= d
+        self.excess[v] += d
+        if d and self.excess[u] == d:
+            self.excess_vertices.append(v)
 
+    def relabel(self, u: int) -> None:
+        d = INF
+        for i in range(n):
+            if self.capacity[u][i] - self.flow[u][i] > 0:
+                d = min(d, self.height[i])
+        if d < INF:
+            self.height[u] = d + 1
+
+    def discharge(self, u: int) -> None:
+        while self.excess[u] > 0:
+            if self.seen[u] < self.num_nodes:
+                v = self.seen[u]
+                if self.capacity[u][v] - self.flow[u][v] > 0 and self.height[u] > self.height[v]:
+                    self.push(u,v)
+                else:
+                    self.seen[u] += 1
+            else:
+                self.relabel(u)
+                self.seen[u] = 0
 
     def algorithm(self, source: int, sink: int):
         """Run max-flow algorithm.
@@ -40,75 +67,18 @@ class PushRelabel(MaxFlow):
         self.height[source] = self.num_nodes
         self.excess[source] = INF
 
+        for i in range(self.num_nodes):
+            if i != source:
+                self.push(source,i)
 
+        while(len(self.excess_vertices) > 0):
+            u = self.excess_vertices[0]
+            self.excess_vertices.pop(0)
+            if u != source and u != sink:
+                self.discharge(u)
         
-        return 1
-    
-
-# # The problem: If the direction
-# n: int = 5
-# height = []
-# excess = []
-# seen = []
-# capacity = [[]]
-# flow = [[]]
-
-
-# # pop(0)
-# # append
-
-# def push(u: int, v: int) -> None:
-#     d = min(excess[u], capacity[u][v] - flow[u][v])
-#     flow[u][v] += d
-#     flow[v][u] -= d
-#     excess[u] -= d
-#     excess[v] += d
-#     if d and excess[u] == d:
-#         excess_vertices.append(v)
-
-# def relabel(u: int) -> None:
-#     d = INF
-#     for i in range(n):
-#         if capacity[u][i] - flow[u][i] > 0:
-#             d = min(d, height[i])
-#     if d < INF:
-#         height[u] = d + 1
-
-# def discharge(u: int) -> None:
-#     while excess[u] > 0:
-#         if seen[u] < n:
-#             v = seen[u]
-#             if capacity[u][v] - flow[u][v] > 0 and height[u] > height[v]:
-#                 push(u,v)
-#             else:
-#                 seen[u] += 1
-#         else:
-#             relabel(u)
-#             seen[u] = 0
-
-# def max_flow(s: int, t: int) -> int:
-#     global height, excess_vertices, seen
-#     height = [0]*n
-#     height[s] = n
-#     flow = [[0]*n]*n
-#     excess = [0]*n
-#     excess[s] = INF
-    
-#     for i in range(n):
-#         if i != s:
-#             push(s,i)
-            
-#     seen = [0] * n
-
-#     while(len(excess_vertices) > 0):
-#         u = excess_vertices[0]
-#         excess_vertices.pop(0)
-#         if u != s and u != t:
-#             discharge(u)
-    
-#     # Calculate max flow
-#     max_flow = 0
-#     for i in range(n):
-#         max_flow += flow[t][i]
-#     return max_flow
-    
+        # Calculate max flow
+        max_flow = 0
+        for i in range(self.num_nodes):
+            max_flow += self.flow[sink][i]
+        return max_flow
