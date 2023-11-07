@@ -1,0 +1,36 @@
+venv/
+test*.*
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# Virtual environments
+venv/
+env/
+.venv/
+.pyenv/
+
+# IDEs and editors
+.idea/
+.vscode/
+*.swp
+*~
+.project
+*.iml
+
+# Logs and temporary files
+*.log
+*.bak
+*.tmp
+
+# Generated files
+*.pyc
+*.pyo
+*.pyd
