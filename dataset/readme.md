@@ -27,7 +27,7 @@ Document link: [`networkx`](https://networkx.org/documentation/stable/tutorial.h
 import networkx as nx
 
 file_path = "./dataset/testcase_<number>/graph.graphml"
-G = nx.read_graphml(save_path)
+G = nx.read_graphml(save_path, node_type=int)
 ```
 
 ### Accessing Graph Information
