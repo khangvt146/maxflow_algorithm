@@ -33,10 +33,7 @@ class Dinic(MaxFlow):
         # Run while there's a blocking flow in the level graph
         while self.bfs(source, sink):
             # Find a blocking flow using DFS and update the max flow.
-            blocking_flow = self.dfs(source, sink, float('inf'))
-            while blocking_flow:
-                max_flow += blocking_flow
-                blocking_flow = self.dfs(source, sink, float('inf'))
+            max_flow += self.dfs(source, sink, float('inf'))
 
             # Reset queue and level
             self.queue = []
