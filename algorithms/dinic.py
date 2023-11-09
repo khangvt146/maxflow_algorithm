@@ -29,19 +29,6 @@ class Dinic(MaxFlow):
         """
         # TODO: Implement Dinic algorithm
         max_flow = 0
-        f = open("check.txt", "a")
-        for i in self.adjacency_matrix:
-            f.write("[")
-            for idx, j in enumerate(i):
-                if idx == 0:
-                    f.write(str(j))
-                else:
-                    f.write(',')
-                    f.write(str(j))
-            f.write("]")
-            f.write(',')
-            f.write("\n")
-        f.close()
 
         # Run while there's a blocking flow in the level graph
         while self.bfs(source, sink):
