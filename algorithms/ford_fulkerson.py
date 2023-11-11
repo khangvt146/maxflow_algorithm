@@ -14,16 +14,44 @@ class FordFulkerson(MaxFlow):
     
     def __init__(self, graph: Graph):
         super().__init__(graph)
-        # TODO: add more support variables if needed
+        self.parent = [-1]*self.num_nodes
+
+    def bfs(self, source: int, sink: int):
+        visited = [False]*self.num_nodes
+        queue = [source]
+        visited[source] = True
+
+        while queue:
+            u = queue.pop(0)
+
+            for ind, val in enumerate(self.adjacency_matrix[u]):
+                if visited[ind] == False and val > 0:
+                    queue.append(ind)
+                    visited[ind] = True
+                    self.parent[ind] = u
+
+                    if ind == sink:
+                        return True
+
+        return False
 
     def algorithm(self, source: int, sink: int):
-        """Run max-flow algorithm.
-        Args:
-            source (list): The source node.
-            sink (list): The sink node.
+        max_flow = 0
 
-        Returns:
-            int: The maximum flow value of the algorithm.
-        """
-        # TODO: Implement Ford-Fulkerson algorithm
-        return 1
+        while self.bfs(source, sink) == True:
+            path_flow = float("Inf")
+            s = sink
+            while(s != source):
+                path_flow = min(path_flow, self.adjacency_matrix[self.parent[s]][s])
+                s = self.parent[s]
+
+            max_flow += path_flow
+
+            v = sink
+            while(v != source):
+                u = self.parent[v]
+                self.adjacency_matrix[u][v] -= path_flow
+                self.adjacency_matrix[v][u] += path_flow
+                v = self.parent[v]
+
+        return max_flow
