@@ -15,9 +15,11 @@ class Dinic(MaxFlow):
     def __init__(self, graph: Graph):
         super().__init__(graph)
         # TODO: add more support variables if needed
+        self.queue = []
+        self.level = [-1] * self.num_nodes
 
     def algorithm(self, source: int, sink: int):
-        """Run max-flow algorithm.
+        """Run Dinic algorithm.
         Args:
             source (list): The source node.
             sink (list): The sink node.
@@ -26,4 +28,46 @@ class Dinic(MaxFlow):
             int: The maximum flow value of the algorithm.
         """
         # TODO: Implement Dinic algorithm
-        return 1
+        max_flow = 0
+
+        # Run while there's a blocking flow in the level graph
+        while self.bfs(source, sink):
+            # Find a blocking flow using DFS and update the max flow.
+            max_flow += self.dfs(source, sink, float('inf'))
+
+            # Reset queue and level
+            self.queue = []
+            self.level = [-1] * self.num_nodes
+            
+        return max_flow
+
+    def bfs(self, source: int, sink: int) -> bool:
+        # Perform a BFS to build the level graph.
+        self.queue.append(source)
+        self.level[source] = 0
+        
+        while self.queue:
+            node = self.queue.pop(0)
+            for neighbor in self.graph.neighbors(node):
+                if self.level[neighbor] == -1 and self.adjacency_matrix[node][neighbor] > 0:
+                    self.level[neighbor] = self.level[node] + 1
+                    self.queue.append(neighbor)
+        return self.level[sink] != -1
+
+    def dfs(self, node: int, sink: int, flow: int) -> int:
+        # Perform a DFS to find a blocking flow in the level graph.
+        if node == sink:
+            return flow
+
+        for neighbor in self.graph.neighbors(node):
+            if self.level[neighbor] == self.level[node] + 1 and self.adjacency_matrix[node][neighbor] > 0:
+                # print("Node: ", node)
+                # print("Neighbor: ", neighbor)
+                # print("Flow: ", flow)
+                blocking_flow = self.dfs(neighbor, sink, min(flow, self.adjacency_matrix[node][neighbor]))
+                if blocking_flow > 0:
+                    self.adjacency_matrix[node][neighbor] -= blocking_flow
+                    self.adjacency_matrix[neighbor][node] += blocking_flow
+
+                    return blocking_flow
+        return 0

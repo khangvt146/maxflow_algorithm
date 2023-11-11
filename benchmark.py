@@ -36,19 +36,19 @@ class Benchmark:
             ford_fulkerson = FordFulkerson(G)
             ford_fulkerson_result, ford_fulkerson_time = ford_fulkerson.run(ford_fulkerson.source, ford_fulkerson.sink)
             self.results["ford_fulkerson_result"].append(ford_fulkerson_result)
-            self.results["ford_fulkerson_time"].append(ford_fulkerson_time)
+            self.results["ford_fulkerson_time"].append(ford_fulkerson_time*1e3)
 
             # Add Dinic info
             dinic = Dinic(G)
             dinic_result, dinic_time = dinic.run(dinic.source, dinic.sink)
             self.results["dinic_result"].append(dinic_result)
-            self.results["dinic_time"].append(dinic_time)
+            self.results["dinic_time"].append(dinic_time*1e3)
 
             # Add PushRelabel info
             push_relabel = PushRelabel(G)
             push_relabel_result, push_relabel_time = push_relabel.run(push_relabel.source, push_relabel.sink)
             self.results["push_relabel_result"].append(push_relabel_result)
-            self.results["push_relabel_time"].append(push_relabel_time)
+            self.results["push_relabel_time"].append(push_relabel_time*1e3)
 
 
     def print_table(self):
