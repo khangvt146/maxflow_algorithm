@@ -1,0 +1,369 @@
+root_path: dataset
+datasets:
+  - name: level_1
+    nodes: 20
+    edges: 50
+    weight_range:
+      lower: 0
+      upper: 100
+    num: 10
+    image: True
+
+  - name: level_2
+    nodes: 20
+    edges: 100
+    weight_range:
+      lower: 0
+      upper: 100
+    num: 10
+    image: True
+
+  - name: level_3
+    nodes: 20
+    edges: 200
+    weight_range:
+      lower: 0
+      upper: 100
+    num: 10
+    image: True
+
+  - name: level_4
+    nodes: 20
+    edges: 300
+    weight_range:
+      lower: 0
+      upper: 100
+    num: 10
+    image: True
+###
+  - name: level_5
+    nodes: 50
+    edges: 100
+    weight_range:
+      lower: 0
+      upper: 100
+    num: 10
+    image: True
+
+  - name: level_6
+    nodes: 50
+    edges: 300
+    weight_range:
+      lower: 0
+      upper: 100
+    num: 10
+    image: True
+
+  - name: level_7
+    nodes: 50
+    edges: 500
+    weight_range:
+      lower: 0
+      upper: 100
+    num: 10
+    image: True
+
+  - name: level_8
+    nodes: 50
+    edges: 1000
+    weight_range:
+      lower: 0
+      upper: 100
+    num: 10
+    image: True
+
+###
+  - name: level_9
+    nodes: 100
+    edges: 500
+    weight_range:
+      lower: 0
+      upper: 100
+    num: 10
+    image: True
+
+  - name: level_10
+    nodes: 100
+    edges: 1000
+    weight_range:
+      lower: 0
+      upper: 100
+    num: 10
+    image: True
+
+  - name: level_11
+    nodes: 100
+    edges: 3000
+    weight_range:
+      lower: 0
+      upper: 100
+    num: 10
+    image: True
+
+  - name: level_12
+    nodes: 100
+    edges: 7000
+    weight_range:
+      lower: 0
+      upper: 100
+    num: 10
+    image: True
+
+###
+  - name: level_13
+    nodes: 200
+    edges: 1000
+    weight_range:
+      lower: 0
+      upper: 100
+    num: 10
+    image: True
+
+  - name: level_14
+    nodes: 200
+    edges: 3000
+    weight_range:
+      lower: 0
+      upper: 100
+    num: 10
+    image: True
+
+  - name: level_15
+    nodes: 200
+    edges: 7000
+    weight_range:
+      lower: 0
+      upper: 100
+    num: 10
+    image: True
+
+  - name: level_16
+    nodes: 200
+    edges: 15000
+    weight_range:
+      lower: 0
+      upper: 100
+    num: 10
+    image: True
+
+###
+  - name: level_17
+    nodes: 500
+    edges: 3000
+    weight_range:
+      lower: 0
+      upper: 100
+    num: 10
+    image: True
+
+  - name: level_18
+    nodes: 500
+    edges: 7000
+    weight_range:
+      lower: 0
+      upper: 100
+    num: 10
+    image: True
+
+  - name: level_19
+    nodes: 500
+    edges: 15000
+    weight_range:
+      lower: 0
+      upper: 100
+    num: 10
+    image: True
+
+  - name: level_20
+    nodes: 500
+    edges: 25000
+    weight_range:
+      lower: 0
+      upper: 100
+    num: 10
+    image: True
+
+###
+  - name: level_21
+    nodes: 1000
+    edges: 7000
+    weight_range:
+      lower: 0
+      upper: 100
+    num: 10
+    image: True
+
+  - name: level_22
+    nodes: 1000
+    edges: 15000
+    weight_range:
+      lower: 0
+      upper: 100
+    num: 10
+    image: True
+
+  - name: level_23
+    nodes: 1000
+    edges: 25000
+    weight_range:
+      lower: 0
+      upper: 100
+    num: 10
+    image: True
+
+  - name: level_24
+    nodes: 1000
+    edges: 50000
+    weight_range:
+      lower: 0
+      upper: 100
+    num: 10
+    image: True
+
+###
+  - name: level_25
+    nodes: 2000
+    edges: 15000
+    weight_range:
+      lower: 0
+      upper: 100
+    num: 10
+    image: True
+
+  - name: level_26
+    nodes: 2000
+    edges: 25000
+    weight_range:
+      lower: 0
+      upper: 100
+    num: 10
+    image: True
+
+  - name: level_27
+    nodes: 2000
+    edges: 50000
+    weight_range:
+      lower: 0
+      upper: 100
+    num: 10
+    image: True
+
+  - name: level_28
+    nodes: 2000
+    edges: 100000
+    weight_range:
+      lower: 0
+      upper: 100
+    num: 10
+    image: True
+
+###
+  - name: level_29
+    nodes: 5000
+    edges: 25000
+    weight_range:
+      lower: 0
+      upper: 100
+    num: 10
+    image: True
+
+  - name: level_30
+    nodes: 5000
+    edges: 50000
+    weight_range:
+      lower: 0
+      upper: 100
+    num: 10
+    image: True
+
+  - name: level_31
+    nodes: 5000
+    edges: 100000
+    weight_range:
+      lower: 0
+      upper: 100
+    num: 10
+    image: True
+
+  - name: level_32
+    nodes: 5000
+    edges: 300000
+    weight_range:
+      lower: 0
+      upper: 100
+    num: 10
+    image: True
+
+###
+  - name: level_33
+    nodes: 10000
+    edges: 50000
+    weight_range:
+      lower: 0
+      upper: 100
+    num: 10
+    image: True
+
+  - name: level_34
+    nodes: 10000
+    edges: 100000
+    weight_range:
+      lower: 0
+      upper: 100
+    num: 10
+    image: True
+
+  - name: level_35
+    nodes: 10000
+    edges: 300000
+    weight_range:
+      lower: 0
+      upper: 100
+    num: 10
+    image: True
+
+  - name: level_36
+    nodes: 10000
+    edges: 500000
+    weight_range:
+      lower: 0
+      upper: 100
+    num: 10
+    image: True
+
+###
+  - name: level_37
+    nodes: 20000
+    edges: 100000
+    weight_range:
+      lower: 0
+      upper: 100
+    num: 10
+    image: True
+
+  - name: level_38
+    nodes: 20000
+    edges: 300000
+    weight_range:
+      lower: 0
+      upper: 100
+    num: 10
+    image: True
+
+  - name: level_39
+    nodes: 20000
+    edges: 500000
+    weight_range:
+      lower: 0
+      upper: 100
+    num: 10
+    image: True
+
+  - name: level_40
+    nodes: 20000
+    edges: 1000000
+    weight_range:
+      lower: 0
+      upper: 100
+    num: 10
+    image: True
