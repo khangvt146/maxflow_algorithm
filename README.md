@@ -1,98 +1,59 @@
-# Dataset Instructions
-This document provides instructions for using the generated directed graph as a test case.
+# Maximum Flow Problem
 
-# Dataset Difficulty Levels
+## Introduction
+In this assignment, our team will discover about the **Maximum Flow Problem** about the structure, purpose, algorithm, benchmark, and visualization between algorithms.
 
-| Level     | Testcases | Nodes Number | Weight Range | Edges prob (*)
-| --------- | --------  | -------- |  -------- | -------- |
-| Level 1   | 1 - 10    | 5 - 15   | [1,20]    | 0.6
-| Level 2   | 11 - 20   | 20 - 40  | [1,40]    | 0.6
-| Level 3   | 21 - 30   | 50 - 100 | [1,40]    | 0.6
-| Level 4   | 31 - 40   | 120 - 200  | [1,40]    | 0.6
+## Authors 
+- Quach Minh Tuan
+- Ngo Le Quoc Dung
+- Vo Ho Tan Khang
+- Le Thanh Phuong
+- Nguyen Hoai Thuong
+- Nguyen Hong Dan
 
-* Edges prob: the probability of adding an edge between two nodes.
 
-## Usage Steps
-### Install necessary packages
-```
-pip install -r requirements.txt
-```
+## Version
+1.0.0
 
-### Graph representation
-All graph are built using the `networkx` package in Python. \
-Document link: [`networkx`](https://networkx.org/documentation/stable/tutorial.html)
+## Requirements
++ `Python` >= 3.9.18
++ `Pip` >= 23.3
 
-### Load graphs from testcase
-```
-import networkx as nx
 
-file_path = "./dataset/testcase_<number>/graph.graphml"
-G = nx.read_graphml(save_path, node_type=int)
+## Installation
+### 1. Clone our source code
+```sh
+git clone https://github.com/khangvt146/maxflow_algorithm.git
+cd maxflow_algorithm
 ```
 
-### Accessing Graph Information
-#### Accessing Nodes: 
-Returns a `NodeView` object which can iterate over like a list.
-```
-for node in G.nodes:
-    print(node)
+### 2. Install Dependencies
+```sh
+pip3 install -r requirements.txt
 ```
 
-#### Accessing Edges:
-Returns an `OutEdgeView` object which can iterate over like a list.
-```
-for edge in G.edges:
-    print(edge)
-```
-
-#### Querying Node Attributes:
-```
-node_value = G.nodes[node][<attribute_name>]
+### 3. Generate the Dataset
+In this section, we have a yaml file at path `datasets.yaml`. This file contains all the configurations about the level of datasets, the number of testcases will generate in each level. The level is defined with 2 values: **number of nodes** and **number of edges**. From this statistics, we construct the graph with the library `NetworkX` and saved the config file as `graph.graphml` in folder of corresponding level and testcase. To generate, we just run the following command:
+```sh
+python3 dataset_generator.py
 ```
 
-#### Querying Edge Attributes:
-```
-edge_value = G.edges[edge][<attribute_name>]
-```
-
-#### Getting Neighbors of a Node:
-```
-for neighbor in G.neighbors(node):
-    print(neighbor)
+### 4. Run algorithms and benchmark algorithms
+After generating a **folder** contain the dataset, we run **3 algorithms** that our team perpare including *Ford Fulkerson, Dinic and Push Relabel*. Then we save the result about the **esplase time** for each algorithm for each testcase and soft assertions if the result 3 algorithms returns is not the same. All the data will be saved as `benchmark.csv` file by running the following command:
+```sh
+python3 benchmark.py
 ```
 
-#### Source node and sink node convention:
-- Source Node is the node `0`: \
-```G.nodes['0']['type']```
-- Sink Node is the last node `<num_of_nodes-1>`: \
-```G.nodes[<num_of_nodes-1>]['type']```
-
-## Simple Ford-Fulkeson Algorithm written by GPT :))):
+### 5. Visualization the benchmark algorithms
+After collecting the result for each algorithm for each testcase, we pre-process (clean) the data and plot the line chart base on level (assumed the difficulty of level increases), number of nodes and number of edges by using the command below.
+```sh
+python3 plotter.py
 ```
-def ford_fulkerson(graph, source, sink):
-    max_flow = 0
-    path = bfs(graph, source, sink)
-    while path is not None:
-        path_flow = min(graph[u][v]['capacity'] for u, v in path)
-        for u, v in path:
-            graph[u][v]['capacity'] -= path_flow
-            if (v, u) not in graph.edges:
-                graph.add_edge(v, u)
-                graph[v][u]['capacity'] = 0
-            graph[v][u]['capacity'] += path_flow
-        max_flow += path_flow
-        path = bfs(graph, source, sink)
-    return max_flow
 
-def bfs(graph, source, sink):
-    queue = [(source, [])]
-    while queue:
-        node, path = queue.pop(0)
-        if node == sink:
-            return path + [(node, sink)]
-        for neighbor in graph.neighbors(node):
-            residual_capacity = graph[node][neighbor]['capacity']
-            if residual_capacity > 0 and not any(neighbor == path_node for _, path_node in path):
-                queue.append((neighbor, path + [(node, neighbor)]))
-    return None
-```
+# Result
+We can see the following results, the at some first step (simple case), the Ford Fulkerson and Dinic may be more faster, some last case, the Push-Relabel show the faster results. This is the evidence to verify the time complexity these 3 algorithms.
+<p float="left">
+  <img src="/plot_edge_standard.png" width="300" />
+  <img src="/plot_node_standard.png" width="300" /> 
+  <img src="/plot_level_standard.png" width="300" />
+</p>
