@@ -1,5 +1,7 @@
 from algorithms.max_flow import MaxFlow
 from networkx.classes.graph import Graph
+from collections import deque
+import networkx as nx
 
 INF = 1e9
 
@@ -14,6 +16,8 @@ class PushRelabel(MaxFlow):
     weights: list[tuple[int, int, int]] # Get weights list of edges For example: [(0,1,12),(1,2,10),(2,3,1)]
     adjacency_matrix: list[list[int]] # Get adjacency matrix. For example: [[0,2],[1,3]]
 
+    # adjancecy -> cần phải 2 chiều
+
     def __init__(self, graph: Graph):
         super().__init__(graph)
         # TODO: add more support variables if needed
@@ -22,7 +26,14 @@ class PushRelabel(MaxFlow):
         self.excess = [0 for _ in range(self.num_nodes)]
         self.seen = [0 for _ in range(self.num_nodes)]
         self.capacity = self.adjacency_matrix # ??? Have the another flow
-        self.excess_vertices = [] # queue
+        self.excess_vertices = deque() #[] # queue
+        
+        self.un_graph = self.graph.to_undirected() # adj matrix with not direct
+        # print(self.neighbor)
+        # for node, neighbors in self.neighbor:
+        #     print(f"Node {node}: {list(neighbors)}")
+
+        # G.neighbors(0)
 
     def push(self, u: int, v: int) -> None:
         d = min(self.excess[u], self.capacity[u][v] - self.flow[u][v])
@@ -36,7 +47,8 @@ class PushRelabel(MaxFlow):
 
     def relabel(self, u: int) -> None:
         d = INF
-        for i in range(self.num_nodes):
+        # for i in range(self.num_nodes):
+        for i in self.un_graph.neighbors(u):
             if self.capacity[u][i] - self.flow[u][i] > 0:
                 d = min(d, self.height[i])
         if d < INF:
@@ -45,15 +57,17 @@ class PushRelabel(MaxFlow):
 
     def discharge(self, u: int) -> None:
         while self.excess[u] > 0:
-            if self.seen[u] < self.num_nodes:
-                v = self.seen[u]
+            for v in self.un_graph.neighbors(u):
+            # if self.seen[u] < self.num_nodes:
+                # v = self.seen[u]
                 if self.capacity[u][v] - self.flow[u][v] > 0 and self.height[u] > self.height[v]:
-                    self.push(u,v)
-                else:
-                    self.seen[u] += 1
-            else:
-                self.relabel(u)
-                self.seen[u] = 0
+                    self.push(u,v) # ???
+                # else:
+                #     self.seen[u] += 1
+            # else:
+            #     self.relabel(u)
+            #     self.seen[u] = 0
+            self.relabel(u)
 
     def algorithm(self, source: int, sink: int):
         """Run max-flow algorithm.
@@ -68,15 +82,17 @@ class PushRelabel(MaxFlow):
         self.height[source] = self.num_nodes
         self.excess[source] = INF
 
-        for i in range(self.num_nodes):
+        # for i in range(self.num_nodes):
+        for i in self.un_graph.neighbors(source):
             if i != source:
                 self.push(source,i)
         
         # print(f'>> Start queue: {self.excess_vertices}')
         while(len(self.excess_vertices) > 0):
-            u = self.excess_vertices[0]
+            # u = self.excess_vertices[0]
             # print(f"Choose {u}")
-            self.excess_vertices.pop(0)
+            # self.excess_vertices.pop(0)
+            u = self.excess_vertices.popleft()
             # print(f"Queue after: {self.excess_vertices}")
             if u != source and u != sink:
                 self.discharge(u)
