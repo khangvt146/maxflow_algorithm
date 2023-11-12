@@ -1,2 +1,0 @@
-level,testcase,num_nodes,num_edges,ford_fulkerson_result,dinic_result,push_relabel_result,ford_fulkerson_time,dinic_time,push_relabel_time
-1,1,20,50,36,36,36,0.15091896057128906,0.08869171142578125,0.15497207641601562

@@ -29,7 +29,7 @@ class Benchmark:
         for level in range(1,21):
             print(f"==== Runing level {level} ====")
             for testcase in range(1,11):
-                file_path = f"./dataset/level_{level}/testcase_{testcase}/graph.graphml"
+                file_path = f"./{DATASET_PATH}/level_{level}/testcase_{testcase}/graph.graphml"
                 G = nx.read_graphml(file_path, node_type=int)
                 print(f'>>> Runing testcase {testcase} !!!')
 
@@ -96,8 +96,9 @@ class Benchmark:
         df.to_csv(filename, index=False)
         print(f'Save CSV to {filename} successfully.')
 
-
+DATASET_PATH = 'dataset'
+BENCHMARK_PATH = 'benchmark.csv'
 b = Benchmark()
 b.run()
 b.print_table()
-b.to_csv('benchmark.csv')
+b.to_csv(BENCHMARK_PATH)

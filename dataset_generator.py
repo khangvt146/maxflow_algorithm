@@ -69,8 +69,8 @@ def gen_edges(num_nodes: int, num_edges: int) -> list[tuple[int,int]]:
     Return:
         choosen_permutation (list[tuple[int,int]]): list random number of edges. Eg: [(1,2), (3,4)]
     """
-    lower_edges = num_nodes-1
-    upper_edges = (num_nodes*(num_nodes-1))/2
+    lower_edges = num_nodes - 1
+    upper_edges = num_nodes * (num_nodes-1)
     if num_edges < lower_edges or num_edges > upper_edges:
         raise ValueError("Number of edges must be in range [lower, upper]")
 

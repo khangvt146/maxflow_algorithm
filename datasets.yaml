@@ -1,4 +1,4 @@
-root_path: dataset1
+root_path: dataset
 datasets:
   - name: level_1
     nodes: 20

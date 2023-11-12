@@ -64,7 +64,7 @@ def draw_chart_edge(df: pd.DataFrame):
 
 # Load data
 # df = pd.read_csv("./benchmark_phuong_20level.csv")
-df = pd.read_csv("./benchmark_dung_20level.csv")
+df = pd.read_csv("./benchmark_standard.csv")
 # benchmark_phuong_20level = chưa
 # benchmark_dung_20level = khá ổn định
 # benchmark_Thuong = chưa
