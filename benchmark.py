@@ -1,4 +1,4 @@
-from algorithms import Dinic, FordFulkerson, PushRelabel
+from algorithms import Dinic, FordFulkerson, PushRelabel, PushRelabelImproved
 import networkx as nx
 from tabulate import tabulate
 import pandas as pd
@@ -13,9 +13,12 @@ class Benchmark:
             "ford_fulkerson_result": [],
             "dinic_result": [],
             "push_relabel_result": [],
+            "push_relabel_improved_result": [],
+
             "ford_fulkerson_time": [],
             "dinic_time": [],
-            "push_relabel_time": []
+            "push_relabel_time": [],
+            "push_relabel_improved_time": [],
         }
 
     def run(self, methods: list[int] = None):
@@ -48,6 +51,12 @@ class Benchmark:
                 self.results["push_relabel_result"].append(push_relabel_result)
                 self.results["push_relabel_time"].append(push_relabel_time*1e3) # second
 
+                # # Add PushRelabel-Improved info
+                # push_relabel_improved = PushRelabelImproved(G)
+                # push_relabel_improved_result, push_relabel_improved_time = push_relabel_improved.run(push_relabel_improved.source, push_relabel_improved.sink)
+                # self.results["push_relabel_improved_result"].append(push_relabel_improved_result)
+                # self.results["push_relabel_improved_time"].append(push_relabel_improved_time*1e3) # second
+
                 # Add Dinic info
                 dinic = Dinic(G)
                 dinic_result, dinic_time = dinic.run(dinic.source, dinic.sink)
@@ -72,9 +81,11 @@ class Benchmark:
                 self.results["ford_fulkerson_result"][i],
                 self.results["dinic_result"][i],
                 self.results["push_relabel_result"][i],
+                self.results["push_relabel_improved_result"][i],
                 self.results["ford_fulkerson_time"][i],
                 self.results["dinic_time"][i],
-                self.results["push_relabel_time"][i]
+                self.results["push_relabel_time"][i],
+                self.results["push_relabel_improved_time"][i],
             ])
         headers = self.results.keys()
 

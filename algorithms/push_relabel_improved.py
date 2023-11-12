@@ -5,7 +5,7 @@ import networkx as nx
 
 INF = 1e9
 
-class PushRelabel(MaxFlow):
+class PushRelabelImproved(MaxFlow):
     graph: Graph # Load graph from NetworkX lib
     source: int # Load source node
     sink: int # Load sink node
@@ -28,10 +28,11 @@ class PushRelabel(MaxFlow):
         self.capacity = self.adjacency_matrix # ??? Have the another flow
         self.excess_vertices = deque() #[] # queue
         
-        # self.un_graph = self.graph.to_undirected() # adj matrix with not direct
         self.undirected_graph = self.graph.to_undirected() # adj matrix with not direct
         self.adjacency_list = [list(self.undirected_graph.neighbors(node)) for node in range(self.num_nodes)]
         
+        # list(self.undirected_graph.adjacency())
+        # print(self.adjacency_list)
         # print(self.neighbor)
         # for node, neighbors in self.neighbor:
         #     print(f"Node {node}: {list(neighbors)}")
@@ -50,6 +51,7 @@ class PushRelabel(MaxFlow):
 
     def relabel(self, u: int) -> None:
         d = INF
+        # for i in range(self.num_nodes):
         # for i in range(self.num_nodes):
         for i in self.adjacency_list[u]:
             if self.capacity[u][i] - self.flow[u][i] > 0:
@@ -72,6 +74,18 @@ class PushRelabel(MaxFlow):
             #     self.seen[u] = 0
             self.relabel(u)
 
+    def find_max_height_vertices(self, s: int, t: int) -> list[int]:
+        max_height: list[int] = []
+        for i in range(self.num_nodes):
+            if i != s and i != t and self.excess[i] > 0:
+                if (len(max_height) > 0) and (self.height[i] > self.height[max_height[0]]):
+                    max_height.clear()
+                if (len(max_height) == 0) or (self.height[i] == self.height[max_height[0]]):
+                    max_height.append(i)
+        return max_height
+    
+     
+
     def algorithm(self, source: int, sink: int):
         """Run max-flow algorithm.
         Args:
@@ -89,16 +103,37 @@ class PushRelabel(MaxFlow):
         for i in self.adjacency_list[source]:
             if i != source:
                 self.push(source,i)
+
+        current: list[int] = []
+        while (True):
+            current = self.find_max_height_vertices(source, sink)
+            if len(current) == 0:
+                break
+ 
+
+            for i in current:
+                pushed: bool = False
+                # for j in range(self.num_nodes):
+                for j in self.adjacency_list[i]:
+                    if self.excess[i] == 0:
+                        break
+                    if (self.capacity[i][j] - self.flow[i][j] > 0 and self.height[i] == self.height[j] + 1):
+                        self.push(i, j)
+                        pushed = True
+                    
+                if not pushed:
+                    self.relabel(i)
+                    break
         
-        # print(f'>> Start queue: {self.excess_vertices}')
-        while(len(self.excess_vertices) > 0):
-            # u = self.excess_vertices[0]
-            # print(f"Choose {u}")
-            # self.excess_vertices.pop(0)
-            u = self.excess_vertices.popleft()
-            # print(f"Queue after: {self.excess_vertices}")
-            if u != source and u != sink:
-                self.discharge(u)
+        # # print(f'>> Start queue: {self.excess_vertices}')
+        # while(len(self.excess_vertices) > 0):
+        #     # u = self.excess_vertices[0]
+        #     # print(f"Choose {u}")
+        #     # self.excess_vertices.pop(0)
+        #     u = self.excess_vertices.popleft()
+        #     # print(f"Queue after: {self.excess_vertices}")
+        #     if u != source and u != sink:
+        #         self.discharge(u)
         
         # Calculate max flow
         max_flow = 0
