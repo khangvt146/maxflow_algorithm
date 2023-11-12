@@ -23,7 +23,7 @@ def draw_chart_level(df: pd.DataFrame):
     # plt.plot(df['level'], df['push_relabel_improved_time'], marker='o', label='Push Relabel Improved')
 
     plt.xlabel('Level of Testcase')
-    plt.ylabel('Time (seconds)')
+    plt.ylabel('Time (milliseconds)')
     plt.title('Algorithm Time Comparison over Level of Testcase')
     plt.legend()
 
@@ -39,7 +39,7 @@ def draw_chart_node(df: pd.DataFrame):
     # plt.plot(df['num_nodes'], df['push_relabel_improved_time'], marker='o', label='Push Relabel Improved')
 
     plt.xlabel('Number of nodes')
-    plt.ylabel('Time (seconds)')
+    plt.ylabel('Time (milliseconds)')
     plt.title('Algorithm Time Comparison over Number of nodes')
     plt.legend()
 
@@ -55,7 +55,7 @@ def draw_chart_edge(df: pd.DataFrame):
     # plt.plot(df['num_edges'], df['push_relabel_improved_time'], marker='o', label='Push Relabel Improved')
 
     plt.xlabel('Number of edges')
-    plt.ylabel('Time (seconds)')
+    plt.ylabel('Time (milliseconds)')
     plt.title('Algorithm Time Comparison over Number of edges')
     plt.legend()
 
@@ -63,12 +63,7 @@ def draw_chart_edge(df: pd.DataFrame):
     # plt.show()
 
 # Load data
-# df = pd.read_csv("./benchmark_phuong_20level.csv")
 df = pd.read_csv("./benchmark_standard.csv")
-# benchmark_phuong_20level = chưa
-# benchmark_dung_20level = khá ổn định
-# benchmark_Thuong = chưa
-
 
 # Pre-process
 df_cleaned = df.drop(['testcase', 'num_nodes', 'num_edges'], axis=1)
