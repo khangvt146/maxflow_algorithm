@@ -53,7 +53,7 @@ python3 plotter.py
 # Result
 We can see the following results, the at some first step (simple case), the Ford Fulkerson and Dinic may be more faster, some last case, the Push-Relabel show the faster results. This is the evidence to verify the time complexity these 3 algorithms.
 <p float="left">
-  <img src="/plot_edge_standard.png" width="400" />
-  <img src="/plot_node_standard.png" width="400" /> 
-  <img src="/plot_level_standard.png" width="400" />
+  <img src="/plot_edge_standard.png" width="600" />
+  <img src="/plot_node_standard.png" width="600" /> 
+  <img src="/plot_level_standard.png" width="600" />
 </p>
